@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{% block title %}Reciclaje{% endblock %}</title>
+
+  <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'home' %}">Reciclaje</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#navbarNav" aria-controls="navbarNav"
+              aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+              <span class="nav-link disabled">Hola, {{ user.username }}</span>
+            </li>
+            <li class="nav-item">
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button 
+        type="submit" 
+        class="nav-link btn btn-link"
+        style="padding: .5rem 1rem; margin: 0;">
+        Cerrar sesión
+      </button>
+    </form>
+  </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'signup' %}" target="_self">Crear cuenta</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-4">
+    {% block content %}{% endblock %}
+  </main>
+
+  <script src="{% static 'core/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'core/js/main.js' %}"></script>
+</body>
+</html>
