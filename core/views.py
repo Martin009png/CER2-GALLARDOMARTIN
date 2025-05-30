@@ -1,8 +1,12 @@
 from django.shortcuts import redirect, render
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.contrib.auth import logout  
+from .models import Solicitud,MaterialType
+from django import forms
+
 
 # Create your views here.
 def home(request):
@@ -22,3 +26,32 @@ class SignUpView(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
+
+def materiales_publicos(request):
+    materiales = MaterialType.objects.all()
+    return render(request, 'core/materiales.html', {'materiales': materiales})
+
+class SolicitudForm(forms.ModelForm):
+    class Meta:
+        model = Solicitud
+        fields = ['material', 'cantidad', 'fecha_estimada']
+        widgets = {
+            'fecha_estimada': forms.DateInput(attrs={'type': 'date'})
+        }
+
+@login_required
+def nueva_solicitud(request):
+    if request.method == 'POST':
+        form = SolicitudForm(request.POST)
+        if form.is_valid():
+            solicitud = form.save(commit=False)
+            solicitud.ciudadano = request.user
+            solicitud.save()
+            return redirect('home')
+    else:
+        form = SolicitudForm()
+    return render(request, 'core/nueva_solicitud.html', {'form': form})
+
+def mis_solicitudes(request):
+    solicitudes = Solicitud.objects.filter(ciudadano=request.user).order_by('-created_at')
+    return render(request, 'core/mis_solicitudes.html', {'solicitudes': solicitudes})

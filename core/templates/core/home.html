@@ -1,6 +1,19 @@
 {% extends 'core/base.html' %}
+{% load static %}
 {% block title %}Inicio | Reciclaje{% endblock %}
 {% block content %}
-  <h1>Bienvenido al sistema de reciclaje</h1>
-  <p>Esta es tu página principal.</p>
+
+  <div class="text-center">
+    <h1 class="mb-4">Bienvenido al sistema de reciclaje</h1>
+
+    <img src="{% static 'core/img/reciclaje.png' %}" alt="Reciclaje" class="img-fluid mb-4" style="max-height: 300px;">
+
+    <p class="lead">
+      Este sitio te permite conocer qué materiales puedes reciclar y cómo gestionarlos fácilmente.
+      Si eres ciudadano, puedes crear una cuenta para solicitar retiros de reciclaje y
+      revisar el estado de cada solicitud. Si solo estás explorando, puedes ver los tipos de materiales aceptados
+      y acceder a información útil sin necesidad de registrarte.
+    </p>
+  </div>
+
 {% endblock %}

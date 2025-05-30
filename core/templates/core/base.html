@@ -23,7 +23,16 @@
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'materiales' %}">Materiales</a>
+          </li>
           {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'nueva_solicitud' %}">Nueva solicitud</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'mis_solicitudes' %}">Mis solicitudes</a>
+          </li>
             <li class="nav-item">
               <span class="nav-link disabled">Hola, {{ user.username }}</span>
             </li>
@@ -43,7 +52,7 @@
               <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'signup' %}" target="_self">Crear cuenta</a>
+              <a class="nav-link" href="{% url 'signup' %}">Crear cuenta</a>
             </li>
           {% endif %}
         </ul>

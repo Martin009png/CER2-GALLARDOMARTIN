@@ -1,0 +1,29 @@
+{% extends "core/base.html" %}
+{% block title %}Mis solicitudes{% endblock %}
+{% block content %}
+
+  <h2 class="mb-4">Historial de solicitudes</h2>
+
+  {% if solicitudes %}
+    <ul class="list-group">
+      {% for sol in solicitudes %}
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-column flex-md-row">
+          <div>
+            <strong>{{ sol.material.nombre }}</strong> — {{ sol.cantidad }} unidades<br>
+            <small class="text-muted">Fecha estimada: {{ sol.fecha_estimada }}</small>
+          </div>
+          <span class="badge 
+            {% if sol.estado == 'pendiente' %}bg-warning text-dark
+            {% elif sol.estado == 'en_ruta' %}bg-info text-dark
+            {% elif sol.estado == 'completada' %}bg-success
+            {% else %}bg-secondary{% endif %}">
+            {{ sol.get_estado_display }}
+          </span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-muted">No has registrado solicitudes aún.</p>
+  {% endif %}
+
+{% endblock %}
