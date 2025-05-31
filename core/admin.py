@@ -56,3 +56,6 @@ admin.site.register(MaterialType)
 admin.site.register(PuntoLimpio)
 admin.site.register(Recomendacion)
 admin.site.register(Comentario)
+
+for sol in Solicitud.objects.all():
+    print(sol.id, sol.material.nombre, sol.operario.username if sol.operario else 'Sin operario')
