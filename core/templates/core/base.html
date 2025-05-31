@@ -26,6 +26,15 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'materiales' %}">Materiales</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'puntos_limpios' %}">Puntos limpios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'recomendaciones' %}">Recomendaciones</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'metricas' %}">Métricas</a>
+          </li>
           {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'nueva_solicitud' %}">Nueva solicitud</a>

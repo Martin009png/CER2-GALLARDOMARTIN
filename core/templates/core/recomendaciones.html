@@ -1,0 +1,15 @@
+{% extends "core/base.html" %}
+{% block title %}Recomendaciones{% endblock %}
+{% block content %}
+<h2>Recomendaciones para reciclar</h2>
+<ul class="list-group">
+  {% for consejo in consejos %}
+  <li class="list-group-item">
+    <strong>{{ consejo.titulo }}</strong><br>
+    {{ consejo.texto }}
+  </li>
+  {% empty %}
+  <li class="list-group-item">No hay recomendaciones registradas.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

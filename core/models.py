@@ -1,3 +1,4 @@
+from datetime import timezone
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -35,5 +36,30 @@ class Solicitud(models.Model):
     estado = models.CharField(max_length=20, choices=ESTADOS, default='pendiente')
     created_at = models.DateTimeField(auto_now_add=True)
 
+    fecha_completada = models.DateTimeField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if self.estado == 'completada' and self.fecha_completada is None:
+            self.fecha_completada = timezone.now()
+        elif self.estado != 'completada':
+            self.fecha_completada = None
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.ciudadano.username} - {self.material.nombre}"
+
+class PuntoLimpio(models.Model):
+    nombre = models.CharField(max_length=100)
+    direccion = models.CharField(max_length=200)
+    horario = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nombre
+
+
+class Recomendacion(models.Model):
+    titulo = models.CharField(max_length=100)
+    texto = models.TextField()
+
+    def __str__(self):
+        return self.titulo

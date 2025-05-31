@@ -22,9 +22,12 @@ from core import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-     path('accounts/', include('django.contrib.auth.urls')),
-     path('accounts/signup/', views.SignUpView.as_view(), name='signup'),
-     path('materiales/', views.materiales_publicos, name='materiales'),
-     path('solicitud/nueva/', views.nueva_solicitud, name='nueva_solicitud'),
-     path('solicitudes/', views.mis_solicitudes, name='mis_solicitudes'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/signup/', views.SignUpView.as_view(), name='signup'),
+    path('materiales/', views.materiales_publicos, name='materiales'),
+    path('solicitud/nueva/', views.nueva_solicitud, name='nueva_solicitud'),
+    path('solicitudes/', views.mis_solicitudes, name='mis_solicitudes'),
+    path('puntos-limpios/', views.puntos_limpios, name='puntos_limpios'),
+    path('recomendaciones/', views.recomendaciones, name='recomendaciones'),
+    path('metricas/', views.metricas_reciclaje, name='metricas'),
 ]

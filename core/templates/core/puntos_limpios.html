@@ -1,0 +1,16 @@
+{% extends "core/base.html" %}
+{% block title %}Puntos Limpios{% endblock %}
+{% block content %}
+<h2>Puntos Limpios disponibles</h2>
+<ul class="list-group">
+  {% for punto in puntos %}
+  <li class="list-group-item">
+    <strong>{{ punto.nombre }}</strong><br>
+    Dirección: {{ punto.direccion }}<br>
+    Horario: {{ punto.horario }}
+  </li>
+  {% empty %}
+  <li class="list-group-item">No hay puntos limpios registrados.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

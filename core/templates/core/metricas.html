@@ -1,0 +1,36 @@
+{% extends "core/base.html" %}
+{% block title %}Métricas de reciclaje{% endblock %}
+{% block content %}
+  <h2>Métricas de reciclaje</h2>
+
+  <h4>Solicitudes por mes</h4>
+  <ul class="list-group mb-4">
+    {% for item in solicitudes_por_mes %}
+      <li class="list-group-item">
+        {{ item.mes|date:"F Y" }}: {{ item.total }} solicitudes
+      </li>
+    {% empty %}
+      <li class="list-group-item">No hay datos.</li>
+    {% endfor %}
+  </ul>
+
+  <h4>Materiales más reciclados</h4>
+  <ul class="list-group mb-4">
+    {% for item in solicitudes_por_material %}
+      <li class="list-group-item">
+        {{ item.material__nombre }}: {{ item.total }} solicitudes
+      </li>
+    {% empty %}
+      <li class="list-group-item">No hay datos.</li>
+    {% endfor %}
+  </ul>
+
+  <h4>Tiempo promedio de retiro</h4>
+  {% if tiempo_promedio %}
+    <p>
+      {{ tiempo_promedio.days }} días, {{ tiempo_promedio.seconds|divisibleby:3600 }} horas
+    </p>
+  {% else %}
+    <p>No hay datos suficientes para calcular el tiempo promedio.</p>
+  {% endif %}
+{% endblock %}
