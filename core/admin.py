@@ -10,8 +10,9 @@ class SolicitudAdminForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['operario'].queryset = User.objects.filter(groups__name='operarios').order_by('username')
-
+        # Solo ajustamos queryset si el campo 'operario' existe en el formulario
+        if 'operario' in self.fields:
+            self.fields['operario'].queryset = User.objects.filter(groups__name='operarios').order_by('username')
 class ComentarioInline(admin.TabularInline):
     model = Comentario
     extra = 0
@@ -23,6 +24,7 @@ class ComentarioInline(admin.TabularInline):
         super().save_model(request, obj, form, change)
 
 class SolicitudAdmin(admin.ModelAdmin):
+    inlines = [ComentarioInline]
     form = SolicitudAdminForm
     list_display = ('ciudadano', 'material', 'cantidad', 'estado', 'operario')
     list_filter = ('estado', 'operario')
