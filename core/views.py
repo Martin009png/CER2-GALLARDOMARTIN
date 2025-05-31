@@ -57,8 +57,9 @@ def nueva_solicitud(request):
     return render(request, 'core/nueva_solicitud.html', {'form': form})
 
 def mis_solicitudes(request):
-    solicitudes = Solicitud.objects.filter(ciudadano=request.user).order_by('-created_at')
+    solicitudes = Solicitud.objects.filter(ciudadano=request.user).prefetch_related('comentarios').order_by('-created_at')
     return render(request, 'core/mis_solicitudes.html', {'solicitudes': solicitudes})
+
 
 def puntos_limpios(request):
     puntos = PuntoLimpio.objects.all()

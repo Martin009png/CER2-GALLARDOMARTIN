@@ -10,7 +10,22 @@
         <li class="list-group-item d-flex justify-content-between align-items-center flex-column flex-md-row">
           <div>
             <strong>{{ sol.material.nombre }}</strong> — {{ sol.cantidad }} unidades<br>
-            <small class="text-muted">Fecha estimada: {{ sol.fecha_estimada }}</small>
+            <small class="text-muted">Fecha estimada: {{ sol.fecha_estimada }}</small><br>
+
+            {% if sol.comentarios.all %}
+              <div class="mt-2">
+                <strong>Comentarios:</strong>
+                <ul class="list-unstyled ms-3">
+                  {% for comentario in sol.comentarios.all %}
+                    <li>
+                      <small><strong>{{ comentario.autor.username }}:</strong> {{ comentario.texto }} <em>({{ comentario.fecha|date:"d/m/Y H:i" }})</em></small>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% else %}
+              <small class="text-muted fst-italic mt-2 d-block">No hay comentarios aún.</small>
+            {% endif %}
           </div>
           <span class="badge 
             {% if sol.estado == 'pendiente' %}bg-warning text-dark
